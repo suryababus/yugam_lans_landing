@@ -43,12 +43,23 @@ export default function Contact() {
 
     setStatus("loading");
     try {
-      const res = await fetch("/api/contact", {
+      // Web3Forms free plan only accepts client-side submissions; the access
+      // key is designed to be public.
+      const res = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, projectType, message }),
+        body: JSON.stringify({
+          access_key: process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY,
+          subject: `New inquiry: ${projectType} — ${name.trim()}`,
+          from_name: "Yugam Labs website",
+          name: name.trim(),
+          email,
+          project_type: projectType,
+          message: message.trim(),
+        }),
       });
-      if (!res.ok) throw new Error("Request failed");
+      const data = (await res.json()) as { success?: boolean };
+      if (!res.ok || !data.success) throw new Error("Request failed");
       setStatus("success");
     } catch {
       setStatus("error");
