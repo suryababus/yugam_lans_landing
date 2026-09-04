@@ -2,8 +2,10 @@ import Nav from "@/components/Nav";
 import Hero from "@/components/Hero";
 import Stats from "@/components/Stats";
 import Services from "@/components/Services";
+import WhyChooseUs from "@/components/WhyChooseUs";
 import TaglineReveal from "@/components/TaglineReveal";
 import HowWeWork from "@/components/HowWeWork";
+import ProjectJourney from "@/components/ProjectJourney";
 import Testimonials from "@/components/Testimonials";
 import About from "@/components/About";
 import Faq from "@/components/Faq";
@@ -29,8 +31,10 @@ export default function Home() {
         <Hero />
         <Stats />
         <Services />
+        <WhyChooseUs />
         <TaglineReveal />
         <HowWeWork />
+        <ProjectJourney />
         <Testimonials />
         <About />
         <Faq />

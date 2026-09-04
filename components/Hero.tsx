@@ -1,4 +1,4 @@
-import Image from "next/image";
+import HeroVisual from "@/components/HeroVisual";
 
 export default function Hero() {
   return (
@@ -28,14 +28,7 @@ export default function Hero() {
       </div>
 
       <div className="mx-auto mt-16 max-w-5xl">
-        <Image
-          src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=2000&q=80"
-          alt="A laptop showing code on a clean desk, the kind of workspace where Yugam Labs products are built"
-          width={2000}
-          height={1333}
-          priority
-          className="w-full rounded-3xl object-cover shadow-xl"
-        />
+        <HeroVisual />
       </div>
     </section>
   );

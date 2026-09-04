@@ -116,6 +116,11 @@ p {
   .chat-wiggle {
     animation: none;
   }
+  .journey-fx {
+    transition: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }
 
 /* Word activation for the tagline reveal section */

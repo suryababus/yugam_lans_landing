@@ -36,8 +36,44 @@ export async function POST(request: Request) {
     );
   }
 
-  // Placeholder: wire this to your email provider (Resend, SES) or CRM.
-  console.log("Contact inquiry:", { name, email, projectType });
+  const accessKey = process.env.WEB3FORMS_ACCESS_KEY;
+  if (!accessKey) {
+    console.error("Contact form: WEB3FORMS_ACCESS_KEY is not set.");
+    return NextResponse.json(
+      { error: "Contact form is not configured." },
+      { status: 500 },
+    );
+  }
+
+  try {
+    const res = await fetch("https://api.web3forms.com/submit", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        access_key: accessKey,
+        subject: `New inquiry: ${projectType} — ${name.trim()}`,
+        from_name: "Yugam Labs website",
+        name: name.trim(),
+        email,
+        project_type: projectType,
+        message: message.trim(),
+      }),
+    });
+    const data = (await res.json()) as { success?: boolean; message?: string };
+    if (!res.ok || !data.success) {
+      console.error("Contact form: delivery failed.", data.message);
+      return NextResponse.json(
+        { error: "Failed to send message." },
+        { status: 502 },
+      );
+    }
+  } catch (err) {
+    console.error("Contact form: delivery failed.", err);
+    return NextResponse.json(
+      { error: "Failed to send message." },
+      { status: 502 },
+    );
+  }
 
   return NextResponse.json({ ok: true });
 }

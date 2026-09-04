@@ -5,6 +5,7 @@ import Link from "next/link";
 
 const links = [
   { href: "#services", label: "Services" },
+  { href: "#why", label: "Why us" },
   { href: "#work", label: "Work" },
   { href: "#about", label: "About" },
   { href: "#contact", label: "Contact" },
