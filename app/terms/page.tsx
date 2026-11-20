@@ -1,16 +1,17 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/metadata";
+import { registeredName } from "@/lib/studio";
 import Link from "next/link";
-import Footer from "@/components/Footer";
 
-export const metadata: Metadata = {
-  title: "Terms of service — Yugam Labs",
-  description: "Terms governing the use of the Yugam Labs website.",
-};
+export const metadata = pageMeta(
+  "Terms of service",
+  "Terms governing the use of the Yugam Labs website.",
+  "/terms",
+);
 
 export default function TermsPage() {
   return (
     <>
-      <main className="mx-auto max-w-3xl flex-1 px-6 py-24">
+      <main id="main" className="mx-auto max-w-3xl flex-1 px-6 py-24">
         <Link
           href="/"
           className="text-sm font-semibold text-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
@@ -24,7 +25,7 @@ export default function TermsPage() {
 
         <div className="mt-8 flex flex-col gap-6 text-base text-muted">
           <p>
-            This website is operated by Yugam Labs, Chennai, Tamil Nadu, India.
+            This website is operated by {registeredName}, trading as Yugam Labs.
             By using it you agree to these terms.
           </p>
           <p>
@@ -50,7 +51,6 @@ export default function TermsPage() {
           </p>
         </div>
       </main>
-      <Footer />
     </>
   );
 }

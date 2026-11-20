@@ -1,16 +1,16 @@
-import type { Metadata } from "next";
+import { pageMeta } from "@/lib/metadata";
 import Link from "next/link";
-import Footer from "@/components/Footer";
 
-export const metadata: Metadata = {
-  title: "Privacy policy — Yugam Labs",
-  description: "How Yugam Labs collects, uses, and protects your information.",
-};
+export const metadata = pageMeta(
+  "Privacy policy",
+  "How Yugam Labs collects, uses, and protects your information.",
+  "/privacy",
+);
 
 export default function PrivacyPage() {
   return (
     <>
-      <main className="mx-auto max-w-3xl flex-1 px-6 py-24">
+      <main id="main" className="mx-auto max-w-3xl flex-1 px-6 py-24">
         <Link
           href="/"
           className="text-sm font-semibold text-muted hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
@@ -20,23 +20,22 @@ export default function PrivacyPage() {
         <h1 className="mt-8 text-4xl font-semibold tracking-tight">
           Privacy policy
         </h1>
-        <p className="mt-3 text-sm text-muted">Last updated September 2026</p>
+        <p className="mt-3 text-sm text-muted">Last updated November 2026</p>
 
         <div className="mt-8 flex flex-col gap-6 text-base text-muted">
           <p>
-            Yugam Labs collects only the information you give us through the
-            contact form on this site: your name, email address, project type,
-            and message. We use it to reply to your inquiry and for no other
-            purpose.
+            When you submit the contact form, we send your name, email address,
+            project type, and message to our team through Discord so we can reply.
+            We also limit repeated submissions to protect the form from spam.
           </p>
           <p>
-            We do not sell your data, share it with advertisers, or add you to
-            a mailing list without your consent. Inquiry records are kept for
-            up to 24 months and then deleted.
+            We do not sell your data, share it with advertisers, or add you to a
+            mailing list without your consent. Inquiry records are kept for up
+            to 24 months and then deleted.
           </p>
           <p>
-            This site does not use tracking cookies. Standard server logs
-            (IP address, request time) are retained briefly for security and
+            This site does not use tracking cookies. Standard server logs (IP
+            address, request time) are retained briefly for security and
             reliability.
           </p>
           <p>
@@ -51,7 +50,6 @@ export default function PrivacyPage() {
           </p>
         </div>
       </main>
-      <Footer />
     </>
   );
 }

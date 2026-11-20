@@ -1,56 +1,27 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Nav from "@/components/Nav";
+import Footer from "@/components/Footer";
 import ChatWidget from "@/components/ChatWidget";
-import AnimatedBackground from "@/components/AnimatedBackground";
+import { registeredName, siteUrl } from "@/lib/studio";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
+const sans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
+const mono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 export const metadata: Metadata = {
-  metadataBase: new URL("https://yugamlabs.in"),
-  title: "Yugam Labs — AI native software studio",
-  description:
-    "Yugam Labs is an AI native engineering studio in Chennai. One senior team designs and ships websites, mobile apps, AI automation, and embedded systems.",
-  openGraph: {
-    title: "Yugam Labs — AI native software studio",
-    description:
-      "One senior team designs and ships websites, mobile apps, AI automation, and embedded systems. From silicon to screen, accelerated by AI.",
-    url: "https://yugamlabs.in",
-    siteName: "Yugam Labs",
-    type: "website",
-    images: [
-      {
-        url: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=1200&h=630&fit=crop&q=80",
-        width: 1200,
-        height: 630,
-        alt: "A clean workspace with a laptop, representing Yugam Labs engineering",
-      },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Yugam Labs — AI native software studio",
-    description:
-      "Websites, mobile apps, AI automation, and embedded systems from one senior team in Chennai.",
-  },
+  metadataBase: new URL(siteUrl),
+  title: "Yugam Labs",
+  description: "Product engineering studio in Chennai, India.",
 };
-
-const organizationSchema = {
+const organization = {
   "@context": "https://schema.org",
   "@type": "Organization",
+  "@id": siteUrl + "/#organization",
   name: "Yugam Labs",
-  url: "https://yugamlabs.in",
+  legalName: registeredName,
+  logo: siteUrl + "/studio/yuga-ring.png",
+  url: siteUrl,
   email: "contact@yugamlabs.in",
-  description:
-    "AI native engineering studio delivering websites, mobile apps, AI automation, and embedded systems.",
   address: {
     "@type": "PostalAddress",
     addressLocality: "Chennai",
@@ -59,26 +30,27 @@ const organizationSchema = {
   },
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      data-scroll-behavior="smooth"
+      className={sans.variable + " " + mono.variable}
     >
-      <body className="min-h-full flex flex-col">
-        <a
-          href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-[100] focus:rounded-full focus:bg-foreground focus:px-3 focus:py-2 focus:text-sm focus:font-semibold focus:text-background"
-        >
+      <body>
+        <a href="#main" className="skip">
           Skip to content
         </a>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organization) }}
         />
-        <AnimatedBackground />
+        <Nav />
         {children}
-        <ChatWidget />
+        <Footer />
+        {process.env.ai_token && <ChatWidget />}
       </body>
     </html>
   );

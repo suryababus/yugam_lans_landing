@@ -22,6 +22,15 @@ This project uses [`next/font`](https://nextjs.org/docs/app/building-your-applic
 
 ## Learn More
 
+### Contact form delivery
+
+Set `DISCORD_CONTACT_WEBHOOK_URL` in the server environment (or in the ignored
+`.env.local` for local development). The contact form posts to `/api/contact`.
+Each running server permits three delivery attempts per email and thirty
+overall in a rolling fifteen-minute window. Behind Railway's public edge it
+also permits six attempts per client IP in that window. Counters reset on
+restart and are independent across replicas.
+
 To learn more about Next.js, take a look at the following resources:
 
 - [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
