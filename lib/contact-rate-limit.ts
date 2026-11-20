@@ -24,7 +24,8 @@ export function reserveSubmission(
     createHash("sha256").update(value).digest("hex");
   const sender = digest(email.toLowerCase());
   const forwarded =
-    process.env.RAILWAY_ENVIRONMENT_ID && headers.get("x-real-ip");
+    (process.env.VERCEL === "1" || process.env.RAILWAY_ENVIRONMENT_ID) &&
+    headers.get("x-real-ip");
   const client = forwarded && isIP(forwarded) ? digest(forwarded) : "shared";
   const sameEmail = submissions.filter((entry) => entry.email === sender);
   const sameClient = submissions.filter((entry) => entry.client === client);
